@@ -1,0 +1,73 @@
+VM avec 5G de RAM
+
+- Sources :
+https://www.w3schools.com/python/python_mysql_getstarted.asp
+https://doc.ubuntu-fr.org/lamp
+https://doc.ubuntu-fr.org/phpmyadmin
+
+- "Plein" écran :
+Preferences > LXQt settings > Monitor settings > Resolution : 1176 x 885
+
+- Installation des outils :
+setxkbmap fr
+sudo -s
+apt-get update
+apt install net-tools
+apt install open-vm-tools
+apt install apache2 php libapache2-mod-php mysql-server php-mysql
+apt install phpmyadmin (apache2 - yes - pmaroot)
+apt install python3-pip
+pip install mysql-connector-python
+pip install paho-mqtt
+snap install sublime-text --classic
+
+- Configuration de l'utilisateur isolé de la base de données de la SAE 23 :
+sudo mysql
+CREATE DATABASE sae23 default character set utf8 colate utf8_genera_ici;;
+CREATE USER "john"@"localhost" IDENTIFIED BY "john123";
+GRANT ALL ON sae23.* TO "john"@"localhost" WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+QUIT;
+
+mysql -u john -p
+password: john123
+
+use sae23;
+
+CREATE TABLE `sae23`.`Batiment` ( `id_bat` INT NOT NULL AUTO_INCREMENT ,  `nom_bat` VARCHAR(255) NOT NULL ,  `login_gest` VARCHAR(255) NOT NULL ,  `password_gest` VARCHAR(64) NOT NULL ,    PRIMARY KEY  (`id_bat`)) ENGINE = InnoDB;
+
+CREATE TABLE `sae23`.`Capteur` ( `id_capt` INT NOT NULL AUTO_INCREMENT ,  `id_bat` INT NOT NULL ,  `nom_capt` VARCHAR(255) NOT NULL ,  `type_capt` VARCHAR(255) NOT NULL ,    PRIMARY KEY  (`id_capt`)) ENGINE = InnoDB;
+
+CREATE TABLE `sae23`.`Mesure` ( `id_mes` INT NOT NULL AUTO_INCREMENT ,  `id_capt` INT NOT NULL ,  `date_mes` DATE NOT NULL ,  `horarire_mes` TIME NOT NULL ,  `valeur_mes` DECIMAL NOT NULL ,    PRIMARY KEY  (`id_mes`)) ENGINE = InnoDB;
+
+CREATE TABLE `sae23`.`Mesure` ( `id_mes` INT NOT NULL AUTO_INCREMENT ,  `id_capt` INT NOT NULL ,  `date_mes` DATE NOT NULL ,  `horarire_mes` TIME NOT NULL ,  `valeur_mes` DECIMAL NOT NULL ,    PRIMARY KEY  (`id_mes`)) ENGINE = InnoDB;
+
+INSERT INTO `Administration`(`login`, `password`) VALUES ('admin','e4abae53cc1cebe5fe89ea93882c699a5e71ab0bbf42a83b7d833975b61c4a41')
+
+sha256(adminpass123) = e4abae53cc1cebe5fe89ea93882c699a5e71ab0bbf42a83b7d833975b61c4a41
+
+
+- Git :
+
+git config --global user.name "RAMOUNET"
+git config --global user.email elie.ramounet.iut@gmail.com
+git config --global color.diff auto 
+git config --global color.status auto 
+git config --global color.branch auto
+git config --global init.defaultBranch main
+git config --global core.editor nano
+git config --global merge.tool vimdiff
+git config --global push.default simple
+
+git init
+git status
+
+git add config.py retrieve_data.py instructions.txt sae23.sql gantt.gantt
+
+git commit -m "Premiere version du projet"
+
+git remote add origin https://github.com/CrapaudCrapaud/SAE23.git
+git branch -M main
+git push -u origin main
+
+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
