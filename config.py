@@ -1,9 +1,9 @@
-MQTT_ADDRESS = ''
+MQTT_ADDRESS = 'mqtt.iut-blagnac.fr'
 MQTT_PORT = 1883
-MQTT_USER = ''
-MQTT_PASSWORD = ''
-MQTT_TOPIC = ''
-MYSQL_HOST = ''
-MYSQL_DB = ''
-MYSQL_USER = ''
-MYSQL_PASSWORD = ''
+MQTT_TOPIC = 'Student/by-room/+/data'
+MQTT_ROOMS = ['E208', 'B106']
+MQTT_SENSORS = ['temperature', 'humidity', 'co2']
+MYSQL_HOST = 'localhost'
+MYSQL_DB = 'sae23'
+MYSQL_USER = 'john'
+MYSQL_PASS = 'john123'

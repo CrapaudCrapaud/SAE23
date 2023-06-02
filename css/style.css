@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+:root {
+	--blue1: #00a6fb;
+	--blue2: #0582CA;
+	--blue3: #006494;
+	--blue4: #003554;
+	--black: #051923;
+	--green: #0fcea0;
+}
+
+* {
+	font-family: 'Raleway', sans-serif, arial;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0 400px 0;
+}
+
+.flex {
+	display:  flex;
+}
+
+.flex-50 {
+	flex:  50%;
+}
+
+.logo {
+	width: 40px;
+	margin-right: 20px;
+}
+
+h1 {
+	color: var(--green);
+	font-size: 5em;
+	margin: 50px 0 30px;
+}
+
+header small {
+	font-size: 1.2em;
+	opacity: 0.6;
+}
+
+header {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 40px;
+	margin: 20px 0 40px;
+}
+
+.description {
+	line-height: 1.5;
+	margin-top: 30px;
+	text-align: justify;
+}
+
+a {
+	color:  var(--green);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+nav {
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 30px;
+	position: sticky;
+	top: 0;
+	z-index: 9;
+	background-color: white;
+}
+
+nav a {
+	display: inline-block;
+	padding: 10px;
+	border-radius: 3px;
+	margin-right: 20px;
+}
+
+nav a:hover {
+	text-decoration: none;
+	background-color: #eee;
+}
+
+.box-container {
+	text-align: center;
+}
+
+.box {
+	border-radius: 5px;
+	display: inline-block;
+	border: 1px solid #ddd;
+}
+
+.box h2 {
+	border-bottom: 1px solid #ddd;
+	margin: 0;
+	padding: 30px 100px;
+}
+
+.box ul {
+	margin: 0;
+	padding: 50px 100px;
+}
+
+.box ul li {
+	list-style-type: none;
+	margin-bottom: 20px;
+}
+
+h2 {
+	margin: 40px 0 30px;
+	color: var(--green);
+}
+
+input {
+	display: block;
+	margin: 10px 0 20px;
+	border-radius: 3px;
+	border: 2px solid var(--green);
+	padding: 12px 15px;
+	width: 300px;
+}
+
+button {
+	display: inline-block;
+	border-radius: 3px;
+	border: none;
+	padding: 15px 20px;
+	font-size: 1.2em;
+	background-color: var(--green);
+	color: white;
+	font-weight: bold;
+	width: 300px;
+	margin-top: 10px;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: #0dac87;
+}
+
+
+
+@media all and (max-width: 1466px) {
+	body {
+		margin: 0 200px 0;
+	}
+}
+
+@media all and (max-width: 1068px) {
+	body {
+		margin: 0 10px 0;
+	}
+}
+
+@media all and (max-width: 706px) {
+	h1 {
+		font-size: 4em;
+	}
+	.menu-container {
+		display: block;
+	}
+	.box:first-child {
+		margin-bottom: 20px;
+	}
+	.logo {
+		display: none;
+	}
+	nav a {
+		margin-right: 10px;
+		padding: 10px 8px;
+		font-size: .9em;
+	}
+}

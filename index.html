@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Page d'accueil de la SAE 23">
+	<meta name="author" content="RAMOUNET Elie, JULOU Loïc, FROMENT Téo">
+	<link type="text/css" rel="stylesheet" href="css/style.css">
+	<title>SAE 23 - Accueil</title>
+</head>
+<body>
+	<nav class="flex">
+		<img alt="Logo d'IoT" src="./img/logo.png" class="logo">
+		<a href="./building.php?b=1" title="Données du bâtiment 1">Bâtiment 1</a>
+		<a href="./building.php?b=2" title="Données du bâtiment 2">Bâtiment 2</a>
+		<a href="./admin.php" title="Administration du site">Administration</a>
+	</nav>
+	<header>
+			<h1>SAE 23</h1>
+			<small>RAMOUNET Elie, JULOU Loïc, FROMENT Téo</small>
+			<p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	</header>
+	<main>
+		<div class="flex menu-container">
+			<div class="flex-50 box-container">
+				<div class="box">
+					<h2><a href="./sensors.php?bat=1" title="Données du bâtiment 1">Bâtiment 1</a></h2>
+					<ul>
+						<li>Capteur 1</li>
+						<li>Capteur 2</li>
+						<li>Capteur 3</li>
+					</ul>
+				</div>
+			</div>
+			<div class="flex-50 box-container">
+				<div class="box">
+					<h2><a href="./sensors.php?bat=2" title="Données du bâtiment 2">Bâtiment 2</a></h2>
+					<ul>
+						<li>Capteur 1</li>
+						<li>Capteur 2</li>
+						<li>Capteur 3</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

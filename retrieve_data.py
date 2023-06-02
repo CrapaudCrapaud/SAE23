@@ -1,14 +1,14 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
+from json import loads
 from datetime import datetime
 from config import *
-from random import randing
 
 db = mysql.connector.connect(
-  host=MYSQL_HOST,
-  user=MYSQL_USER,
-  password=MYSQL_PASS,
-  database=MYSQ_DB
+    host=MYSQL_HOST,
+    user=MYSQL_USER,
+    password=MYSQL_PASS,
+    database=MYSQL_DB
 )
 
 
@@ -22,30 +22,28 @@ def on_message(client, userdata, msg):
     """ The callback for when a PUBLISH message is received from the server. """
     data = msg.payload.decode()
     print(msg.topic + ' : ' + data)
-    parse_message(msg.topic, data)
 
+    # si la salle est parmi celles souhaitées, alors on insère les valeurs dans la base de données
+    if msg.topic[16:-5] in MQTT_ROOMS:
+        
+        # conversion du JSON en un objet Python
+        payload = loads(data)[0]
+        
+        cursor = db.cursor()
+        now = datetime.now()
+        today = now.strftime("%d/%m/%Y")
+        hour = now.strftime("%H:%M:%S")
 
-def parse_message(topic, data):
-    """ This callback parses input and sends them to the database """
-    """
-    cursor = db.cursor()
-    now = datetime.now()
-    today = now.strftime("%d/%m/%Y")
-    hour = now.strftime("%H:%M:%S")
+        for sensor in MQTT_SENSORS:
 
-    query = "INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horarire_mes`, `valeur_mes`) VALUES (%s, %s, %s, %s, %s)"
-    val = (topic, today, hour, data)
-    # changer le 'topic' pour la colonne id_capt
-
-    cursor.execute(sql, val)
-
-    db.commit()
-    """
-    pass
+            #query = "INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (%s, %s, %s, %s)"
+            #val = (payload[sensor], today, hour, data)
+            #cursor.execute(sql, val)
+            #db.commit()
+        
 
 
 mqtt_client = mqtt.Client()
-mqtt_client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
 mqtt_client.on_connect = on_connect
 mqtt_client.on_message = on_message
 

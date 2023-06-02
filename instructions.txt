@@ -1,12 +1,11 @@
-VM avec 5G de RAM
+ VM avec 5G de RAM
 
 - Sources :
 https://www.w3schools.com/python/python_mysql_getstarted.asp
 https://doc.ubuntu-fr.org/lamp
 https://doc.ubuntu-fr.org/phpmyadmin
 
-- "Plein" écran :
-Preferences > LXQt settings > Monitor settings > Resolution : 1176 x 885
+- mot de passe de la VM : passwordsae123
 
 - Installation des outils :
 setxkbmap fr
