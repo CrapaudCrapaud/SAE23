@@ -1,7 +1,6 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
 from json import loads
-from datetime import datetime
 from config import *
 
 db = mysql.connector.connect(
@@ -30,17 +29,17 @@ def on_message(client, userdata, msg):
         payload = loads(data)[0]
         
         cursor = db.cursor()
-        now = datetime.now()
-        today = now.strftime("%d/%m/%Y")
-        hour = now.strftime("%H:%M:%S")
 
         for sensor in MQTT_SENSORS:
 
-            #query = "INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (%s, %s, %s, %s)"
-            #val = (payload[sensor], today, hour, data)
-            #cursor.execute(sql, val)
-            #db.commit()
-        
+            # on doit récupérer l'identifiant du capteur au préalable
+            # retrieve_building = "SELECT id_bat FROM Batiment WHERE nom_bat = '" + msg.topic[17 ou 16 jsp] + '"'
+            # building = cursor.execute(sql, retrieve_building)
+
+            # insert_data = "INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (%s, %s, %s, %s)"
+            # val = (building, curdate(), curtime(), payload[sensor])
+            # cursor.execute(sql, val)
+            # db.commit()
 
 
 mqtt_client = mqtt.Client()
