@@ -28,22 +28,33 @@ GRANT ALL ON sae23.* TO "john"@"localhost" WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 QUIT;
 
-mysql -u john -p
-password: john123
 
-use sae23;
-
-CREATE TABLE `sae23`.`Batiment` ( `id_bat` INT NOT NULL AUTO_INCREMENT ,  `nom_bat` VARCHAR(255) NOT NULL ,  `login_gest` VARCHAR(255) NOT NULL ,  `password_gest` VARCHAR(64) NOT NULL ,    PRIMARY KEY  (`id_bat`)) ENGINE = InnoDB;
-
-CREATE TABLE `sae23`.`Capteur` ( `id_capt` INT NOT NULL AUTO_INCREMENT ,  `id_bat` INT NOT NULL ,  `nom_capt` VARCHAR(255) NOT NULL ,  `type_capt` VARCHAR(255) NOT NULL ,    PRIMARY KEY  (`id_capt`)) ENGINE = InnoDB;
-
-CREATE TABLE `sae23`.`Mesure` ( `id_mes` INT NOT NULL AUTO_INCREMENT ,  `id_capt` INT NOT NULL ,  `date_mes` DATE NOT NULL ,  `horarire_mes` TIME NOT NULL ,  `valeur_mes` DECIMAL NOT NULL ,    PRIMARY KEY  (`id_mes`)) ENGINE = InnoDB;
-
-CREATE TABLE `sae23`.`Mesure` ( `id_mes` INT NOT NULL AUTO_INCREMENT ,  `id_capt` INT NOT NULL ,  `date_mes` DATE NOT NULL ,  `horarire_mes` TIME NOT NULL ,  `valeur_mes` DECIMAL NOT NULL ,    PRIMARY KEY  (`id_mes`)) ENGINE = InnoDB;
+- Importer le fichier sae23.sql
+- Remplissage des tables pour les tests :
 
 INSERT INTO `Administration`(`login`, `password`) VALUES ('admin','e4abae53cc1cebe5fe89ea93882c699a5e71ab0bbf42a83b7d833975b61c4a41')
+INSERT INTO `Batiment`(`nom_bat`, `login_gest`, `password_gest`) VALUES ('E','gest1','2908476d0ff2b0f6195677d324173b69ed53e397fd1d7fef206758c5516ca6a7')
+INSERT INTO `Batiment`(`nom_bat`, `login_gest`, `password_gest`) VALUES ('B','gest2','b57b66b18e6689677f2c3e8b9da2f1ae4e9ffbf013c8d6da3389b0fc49bb0797')
 
 sha256(adminpass123) = e4abae53cc1cebe5fe89ea93882c699a5e71ab0bbf42a83b7d833975b61c4a41
+sha256(passwordgest1) = 2908476d0ff2b0f6195677d324173b69ed53e397fd1d7fef206758c5516ca6a7
+sha256(passwordgest2) = b57b66b18e6689677f2c3e8b9da2f1ae4e9ffbf013c8d6da3389b0fc49bb0797
+
+
+INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (1,'E208-luminosité','luminosité');
+INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (1,'E208-température','température');
+INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (2,'B106-luminosité','luminosité');
+INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (2,'B106-température','température');
+
+
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (1, curdate(), curtime(), 18);
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (1, curdate(), curtime(), 27);
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (2, curdate(), curtime(), 19); 
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (2, curdate(), curtime(), 32);
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (3, curdate(), curtime(), 192);
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (3, curdate(), curtime(), 28); 
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (4, curdate(), curtime(), 11);
+INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (4, curdate(), curtime(), 16);
 
 
 - Git :
