@@ -35,7 +35,11 @@
 	<p>Voici le diagramme de Gantt finalement réalisé :</p>
 	<div class='margin'></div>
 	<h3>Tableau Trello</h3>
-	<p>Nous avons utilisé l'outil Trello pour suivre l'avancement de la progression des différentes tâches réparties entre les groupes.</p>
+	<p>Nous avons utilisé l'outil Trello pour suivre l'avancement de la progression des différentes tâches réparties entre les groupes. Voici un aperçu du tableau Trello avant la fin imminente du projet :</p>
+	<img class='img-center' alt='Tableau Trello - première partie' src='img/trello1.png'>
+	<br>
+	<br>
+	<img class='img-center' alt='Tableau Trello - deuxième partie' src='img/trello2.png'>
 	<div class='margin'></div>
 	<h3>Témoignages individuels</h3>
 	<h4>RAMOUNET Elie</h4>
