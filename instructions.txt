@@ -15,14 +15,15 @@ apt install net-tools
 apt install open-vm-tools
 apt install apache2 php libapache2-mod-php mysql-server php-mysql
 apt install phpmyadmin (apache2 - yes - pmaroot)
-apt install python3-pip
+apt install python[3]-pip
 pip install mysql-connector-python
 pip install paho-mqtt
 snap install sublime-text --classic
 
 - Configuration de l'utilisateur isolé de la base de données de la SAE 23 :
-sudo mysql
-CREATE DATABASE sae23 default character set utf8 colate utf8_genera_ici;;
+mysql -h localhost -u root -p
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));     (https://stackoverflow.com/questions/41887460/select-list-is-not-in-group-by-clause-and-contains-nonaggregated-column-inc)
+CREATE DATABASE sae23;
 CREATE USER "john"@"localhost" IDENTIFIED BY "john123";
 GRANT ALL ON sae23.* TO "john"@"localhost" WITH GRANT OPTION;
 FLUSH PRIVILEGES;

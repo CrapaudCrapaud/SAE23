@@ -112,7 +112,12 @@
             $sensors_query = mysqli_query($db, 'SELECT id_capt, nom_capt FROM Capteur WHERE id_bat = ' . $_SESSION['b']);
 
             while ($sensor = mysqli_fetch_assoc($sensors_query))
-              echo '<option value="' . $sensor['id_capt'] . '">'  . $sensor['nom_capt'] . '</option>';
+            {
+              if ($sensor_id !== '%' and $sensor_id == $sensor['id_capt'])
+                echo '<option value="' . $sensor['id_capt'] . '" selected>'  . $sensor['nom_capt'] . '</option>';
+              else
+                echo '<option value="' . $sensor['id_capt'] . '">'  . $sensor['nom_capt'] . '</option>';
+            }
 
           ?>
         </select>

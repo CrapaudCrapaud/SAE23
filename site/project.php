@@ -29,13 +29,24 @@
   <a href="index.php" title="Retour à l'accueil">Accueil</a> &nbsp;>>&nbsp; 
   <a href="#" title="Gestion de projet">Gestion de projet</a>
 </p>
-<header>
-		<h2>Gestion de projet et informations complémentaires</h2>
-</header>
-
-
+<h2>Gestion de projet et informations complémentaires</h2>
 <main>
-
+	<h3>Diagramme de Gantt final</h3>
+	<p>Voici le diagramme de Gantt finalement réalisé :</p>
+	<div class='margin'></div>
+	<h3>Tableau Trello</h3>
+	<p>Nous avons utilisé l'outil Trello pour suivre l'avancement de la progression des différentes tâches réparties entre les groupes.</p>
+	<div class='margin'></div>
+	<h3>Témoignages individuels</h3>
+	<h4>RAMOUNET Elie</h4>
+	<p></p>
+	<h4>FROMENT Téo</h4>
+	<p></p>
+	<h4>JULOU Loïc</h4>
+	<p></p>
+	<div class='margin'></div>
+	<h3>Degré de satisfaction</h3>
+	<p></p>
 </main>
 <?php
 
