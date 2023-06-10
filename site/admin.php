@@ -11,11 +11,6 @@
 	require('inc/db.php');
 	require('inc/functions.php');
 
-  // fetch all the buildings from the database into an array so as to give this array
-  // to the html_nav() function used to build the dynamic navigation bar
-	$buildings_query = mysqli_query($db, 'SELECT id_bat, nom_bat FROM Batiment');
-	$buildings = mysqli_fetch_all($buildings_query);
-
   // Generate the HTML header part. First argument is the title, second one is the description meta data.
   html_header(
     'SAE 23 - Administration',
@@ -23,7 +18,7 @@
   );
 
 	// Handling the login form before the nav is generated because if the admin logs in, the logout button must appear in the navigation bar
-	if (isset($_POST['username']) && isset($_POST['password']))
+	if (isset($_POST['admin_form']) && isset($_POST['username']) && isset($_POST['password']))
 	{
 		// Retrieve the correct login details from the Administration table
 		$credentials_query = mysqli_query($db, 'SELECT login, password FROM Administration');
@@ -40,7 +35,101 @@
 			$_SESSION['login-error'] = 1;
 		}
 	}
-	
+
+	// Also handle the 4 forms of admin.php where the admin can add or remove a building to modify the navigation bar accordingly
+	// Checking if the user who submitted the form is indeed an administrator
+	if (check_status('admin')) {
+
+		// If one of the 4 forms of admin.php has been submitted
+		if (isset($_POST['action']))
+		{
+			// We decline the behavior of the program according to the 4 possible values of the $_POST['action'] parameter
+			// 'action' is a parameter hidden inside the HTML forms which indicates the purpose of the form
+			switch($_POST['action']) {
+
+				// If the admin wants to delete a building
+				case 'delete-building':
+					// The ID of the building to be deleted must be valid and match the regular expression (only digits, at least 1)
+					if (isset($_POST['building']) && !empty($_POST['building']) && preg_match('/^[0-9]{1,}$/', $_POST['building']))
+					{
+						// If a building gets deleted, all the measurements from all the sensors of this building must be deleted
+						// Delete all the measurements whose sensor ID is in the list of sensor IDs of the sensors belonging to the targeted building
+						$del_measures_query = mysqli_query($db, 'DELETE FROM Mesure WHERE id_capt in (
+							SELECT id_capt FROM Capteur WHERE id_bat = ' . $_POST['building'] . '
+						)');
+
+						// The sensors must be deleted too
+						$del_sensors_query = mysqli_query($db, 'DELETE FROM Capteur WHERE id_bat = ' . $_POST['building']);
+
+						// delete the building identified by the above-mentioned ID
+						$del_building_query = mysqli_query($db, 'DELETE FROM Batiment WHERE id_bat = ' . $_POST['building']);
+						echo '<p class="success">Le bâtiment a bien été supprimé !</p>';
+					}
+					else
+						echo '<p class="error">La suppression n\'a pas pu être effectuée</p>';
+					// break statements are used so PHP does not test the other case statements once it found the right one
+					break;
+
+				// If the admin wants to delete a sensor
+				case 'delete-sensor':
+					// Same as with the building ID. It must be valid
+					if (isset($_POST['sensor']) && !empty($_POST['sensor']) && preg_match('/^[0-9]{1,}$/', $_POST['sensor']))
+					{
+						// Delete the measurements of the sensor
+						$del_measures_query = mysqli_query($db, 'DELETE FROM Mesure WHERE id_capt = ' . $_POST['sensor']);
+
+						// Delete the sensor associated to the sensor ID provided by the admin
+						$del_sensor_query = mysqli_query($db, 'DELETE FROM Capteur WHERE id_capt = ' . $_POST['sensor']);
+						echo '<p class="success">Le capteur a bien été supprimé !</p>';
+					}
+					else
+						echo '<p class="error">La suppression n\'a pas pu être effectuée</p>';
+					break;
+
+				// If the admin wants to add a building
+				case 'add-building':
+					if (isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']))
+					{
+						// Escape the name of the building and the username of its administrator to have clean SQL queries and avoid injections and errors
+						$name = mysqli_real_escape_string($db, $_POST['name']);
+						$username = mysqli_real_escape_string($db, $_POST['username']);
+						// Hash the password using sha256 before inserting it into the table
+						$password = hash('sha256', $_POST['password']);
+						// Create the new building with the previous information
+						$query = mysqli_query($db, "INSERT INTO Batiment (nom_bat, login_gest, password_gest) VALUES ('$name', '$username', '$password')");
+						echo '<p class="success">Le bâtiment a bien été ajouté !</p>';
+					} else 
+						echo '<p class="error">L\'opération n\'a pas pu être effectuée</p>';
+					break;
+
+				// If the admin wants to add a sensor
+				case 'add-sensor':
+					// The building ID whose sensors belongs to must match the only-digit regular expression
+					if (isset($_POST['building']) && preg_match('/^[0-9]{1,}$/', $_POST['building']) && isset($_POST['name']) && isset($_POST['type']))
+					{
+						$id_bat = $_POST['building'];
+						// Escape the strings again
+						$name = mysqli_real_escape_string($db, $_POST['name']);
+						$type = mysqli_real_escape_string($db, $_POST['type']);
+						// Insert the newly created sensor into the table Capteur
+						$query = mysqli_query($db, "INSERT INTO Capteur (id_bat, nom_capt, type_capt) VALUES ('$id_bat', '$name', '$type')");
+						echo '<p class="success">Le capteur a bien été ajouté !</p>';
+					} else 
+						echo '<p class="error">L\'opération n\'a pas pu être effectuée</p>';
+					break;
+
+				// In case the 'action' parameter is invalid, display an error message
+				default:
+					echo "<p class='error'>L'action demandée n'est pas prise en compte.</p>";
+			}
+		}
+	}
+
+	// fetch all the buildings from the database into an array so as to give this array
+  // to the html_nav() function used to build the dynamic navigation bar
+	$buildings_query = mysqli_query($db, 'SELECT id_bat, nom_bat FROM Batiment');
+	$buildings = mysqli_fetch_all($buildings_query);
+
   // Generate the navigation bar once the session has been potentially set
   html_nav($buildings);
 
@@ -52,78 +141,6 @@
 
 		// If the user is indeed an administrator
 		if (check_status('admin')) {
-
-			// If one of the 4 forms of admin.php has been submitted
-			if (isset($_POST['action']))
-			{
-				// We decline the behavior of the program according to the 4 possible values of the $_POST['action'] parameter
-				// 'action' is a parameter hidden inside the HTML forms which indicates the purpose of the form
-				switch($_POST['action']) {
-
-					// If the admin wants to delete a building
-					case 'delete-building':
-						// The ID of the building to be deleted must be valid and match the regular expression (only digits, at least 1)
-						if (isset($_POST['building']) && !empty($_POST['building']) && preg_match('/^[0-9]{1,}$/', $_POST['building']))
-						{
-							// delete the building identified by the above-mentioned ID
-							$query = mysqli_query($db, 'DELETE FROM Batiment WHERE id_bat = ' . $_POST['building']);
-							echo '<p class="success">Le bâtiment a bien été supprimé !</p>';
-						}
-						else
-							echo '<p class="error">La suppression n\'a pas pu être effectuée</p>';
-						// break statements are used so PHP does not test the other case statements once it found the right one
-						break;
-
-					// If the admin wants to delete a sensor
-					case 'delete-sensor':
-						// Same as with the building ID. It must be valid
-						if (isset($_POST['sensor']) && !empty($_POST['sensor']) && preg_match('/^[0-9]{1,}$/', $_POST['sensor']))
-						{
-							// Delete the sensor associated to the sensor ID provided by the admin
-							$query = mysqli_query($db, 'DELETE FROM Capteur WHERE id_capt = ' . $_POST['sensor']);
-							echo '<p class="success">Le capteur a bien été supprimé !</p>';
-						}
-						else
-							echo '<p class="error">La suppression n\'a pas pu être effectuée</p>';
-						break;
-
-					// If the admin wants to add a building
-					case 'add-building':
-						if (isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']))
-						{
-							// Escape the name of the building and the username of its administrator to have clean SQL queries and avoid injections and errors
-							$name = mysqli_real_escape_string($db, $_POST['name']);
-							$username = mysqli_real_escape_string($db, $_POST['username']);
-							// Hash the password using sha256 before inserting it into the table
-							$password = hash('sha256', $_POST['password']);
-							// Create the new building with the previous information
-							$query = mysqli_query($db, "INSERT INTO Batiment (nom_bat, login_gest, password_gest) VALUES ('$name', '$username', '$password')");
-							echo '<p class="success">Le bâtiment a bien été ajouté !</p>';
-						} else 
-							echo '<p class="error">L\'opération n\'a pas pu être effectuée</p>';
-						break;
-
-					// If the admin wants to add a sensor
-					case 'add-sensor':
-						// The building ID whose sensors belongs to must match the only-digit regular expression
-						if (isset($_POST['building']) && preg_match('/^[0-9]{1,}$/', $_POST['building']) && isset($_POST['name']) && isset($_POST['type']))
-						{
-							$id_bat = $_POST['building'];
-							// Escape the strings again
-							$name = mysqli_real_escape_string($db, $_POST['name']);
-							$type = mysqli_real_escape_string($db, $_POST['type']);
-							// Insert the newly created sensor into the table Capteur
-							$query = mysqli_query($db, "INSERT INTO Capteur (id_bat, nom_capt, type_capt) VALUES ('$id_bat', '$name', '$type')");
-							echo '<p class="success">Le capteur a bien été ajouté !</p>';
-						} else 
-							echo '<p class="error">L\'opération n\'a pas pu être effectuée</p>';
-						break;
-
-					// In case the 'action' parameter is invalid, display an error message
-					default:
-						echo "<p class='error'>L'action demandée n'est pas prise en compte.</p>";
-				}
-			}
 
 			// Display the 4 forms responsible for the above-mentioned actions:
 
@@ -198,7 +215,7 @@
 					echo '<option value="' . $building['id_bat'] . '">Bâtiment ' . $building['nom_bat'] . '</option>';
 			?>
 				</select>
-				<label for='name'>Nom du capteur (format '[salle]-[nom]'):</label>
+				<label for='name'>Nom du capteur (format '[salle]-[type]'):</label>
 				<input type='text' name='name' id='name' required placeholder='Nom du capteur' maxlength='25'>
 				<label for='type'>Type du capteur :</label>
 				<input type='text' name='type' id='type' required placeholder="Type du capteur" maxlength='25'>
@@ -224,6 +241,7 @@
 
 		?>
 		<form action="admin.php" method="POST">
+			<input type="hidden" name="admin_form" value="1">
 			<label for="username">Nom d'utilisateur :</label>
 			<input type="text" id="username" name="username" maxlength="25" minlength="1" placeholder="nom d'utilisateur" required autofocus>
 

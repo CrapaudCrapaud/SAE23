@@ -55,18 +55,18 @@
       </tr>
     <?php
 
-      // SQL query to retrieve the date, the time and the value of each measure, and the name of their associated sensor
-      // It consists of a junction between the Mesure and Capteur tables with identical id_capt
-      // It only retrieves the data from sensors of the building stored within the $_SESSION variable 'b'
-      // Plus, GROUP BY is used in order to display only the most recent value of each sensor.
-      // Only the user who manages the building is able to see full data
+      // The given PHP code executes a SQL query to retrieve the most recent measurement for each sensor belonging 
+      // to the specific building $_SESSION['b']. The MAX() function is used to select the maximum date and time values
+      // for each sensor's measurements. The GROUP BY clause ensures that only one record per sensor is returned,
+      // representing the most recent measurement
+     
       $data = mysqli_query(
         $db,
-        'SELECT Capteur.nom_capt, date_mes, horaire_mes, valeur_mes
+        'SELECT Capteur.nom_capt, Mesure.id_capt, MAX(Mesure.date_mes) AS date_mes, MAX(Mesure.horaire_mes) AS horaire_mes
         FROM Mesure
-        INNER JOIN Capteur
-        ON Mesure.id_capt = Capteur.id_capt
-        WHERE Capteur.id_bat = ' . $_SESSION['b'] . ' GROUP BY Mesure.id_capt'
+        JOIN Capteur ON Mesure.id_capt = Capteur.id_capt
+        WHERE Capteur.id_bat = ' . $_SESSION['b'] . '
+        GROUP BY Mesure.id_capt;'
       );
 
       // Output all the result in the array

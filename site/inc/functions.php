@@ -37,7 +37,7 @@
 	function html_nav($buildings) {
 		// $buildings is an array containing arrays in the form [building_id, building_name]
 		// This funcion generates a dynamic navigation bar
-		$nav = '<nav class="flex">
+		$nav = '<nav>
 		<img alt="Logo d\'IoT" src="./img/logo.png" class="logo">';
 
 		// loops through the buildings and create the necessary links to reach them

@@ -1,73 +1,122 @@
+/* Set variables for easy access to the color theme throughout all the file */
+
 :root {
 	--black: #051923;
 	--green: #0fcea0;
 }
 
+/* Specify the font sans-serif and the box-sizing property for all the elements */
 * {
 	font-family: sans-serif, arial;
 	box-sizing: border-box;
 }
 
+/* Smooth scrolling effect */
 html {
 	scroll-behavior: smooth;
 }
 
+/* Margin on the sides to get a centered website content */
 body {
 	margin: 0 400px 0;
 }
 
 .flex {
-	display:  flex;
+	display: flex;
 }
 
-.logo {
-	width: 40px;
-	margin-right: 20px;
-}
-
+/* Main title, on the main page */
 h1 {
 	color: var(--green);
 	font-size: 5em;
 	margin: 50px 0 30px;
 }
 
-header small {
-	font-size: 1.2em;
-	opacity: 0.6;
+/* h2 titles are used on most of the pages with a green style, font size unchanged and margin up and down */
+h2 {
+	margin: 40px 0 30px;
+	color: var(--green);
 }
 
+/* Underlined h2 titles */
+.title {
+	border-bottom: 1px solid lightgray;
+	padding-bottom: 15px;
+	display: inline-block;
+}
+
+/* We don't want h3 titles to be bold */
+h3 {
+	font-weight:normal;
+}
+
+/* Make the small h4 titles more noticeable */
+h4 {
+	color: var(--green);
+	font-size: 1.2em;
+}
+
+/* Style of the header - a bit of space and a separation with the bottom elements through a border */
 header {
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 40px;
 	margin: 20px 0 40px;
 }
 
+/* <small> contains our names on the main page */
+header small {
+	font-size: 1.2em;
+	opacity: 0.6;
+}
+
+/* The footer has a basic style, like the header */
+footer {
+	padding: 10px 0 50px;
+	color: var(--green);
+	border-top: 1px solid lightgray;
+	margin-top: 50px;
+}
+
+/* Descriptive texts are justified, spaced with a bigger line-height and have a greater bottom and top margin */
 .description {
 	line-height: 1.5;
 	margin: 50px 0;
 	text-align: justify;
 }
 
+/* Links are green and not underlined by default */
 a {
 	color:  var(--green);
 	text-decoration: none;
 }
 
+/* However, they are underlined if we hover over them with our cursor which turns into the hand logo */
 a:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
 
+/* The navigation bar is sticky which means it will stay fixed until the top of the page reaches the top of it, then it will scroll down with the other
+	elements. It has a white background and the biggest z-index to be above every other elements as the user scrolls through the page
+*/
 nav {
 	padding: 10px 0;
 	border-bottom: 1px solid #ccc;
 	margin-bottom: 30px;
+	display: flex;
 	position: sticky;
 	top: 0;
 	z-index: 9;
 	background-color: white;
 }
 
+/* Logo on the left of the navigation bar */
+.logo {
+	width: 40px;
+	margin-right: 20px;
+}
+
+/* Navigation links are inline blocks to receive style and avoid line breaks */
 nav a {
 	display: inline-block;
 	padding: 10px;
@@ -75,38 +124,45 @@ nav a {
 	margin-right: 20px;
 }
 
+/* Their background color is emphasized when the cursor hovers over them */
 nav a:hover {
 	text-decoration: none;
 	background-color: #eee;
 }
 
+/* .box elements contain the building and their sensors on the front page */
 .box {
 	border-radius: 5px;
 	display: inline-block;
 	border: 1px solid #ddd;
+	margin: 5px;
 }
 
+/* .box h2 are the titles of the boxes */
 .box h2 {
 	border-bottom: 1px solid #ddd;
 	margin: 0;
-	padding: 30px 100px;
+	padding: 30px 70px;
 }
 
+/* A hover style to tell the user that this element can be clicked */
+.box h2:hover {
+	background-color: #eee;
+}
+
+/* .box ul are the lists of the boxes holding the sensors names */
 .box ul {
 	margin: 0;
-	padding: 50px 100px;
+	padding: 50px 70px;
 }
 
-.box ul li {
+/* .box li are the sensors within the boxes */
+.box li {
 	list-style-type: none;
 	margin-bottom: 20px;
 }
 
-h2 {
-	margin: 40px 0 30px;
-	color: var(--green);
-}
-
+/* input and select tags of HTML forms are bigger and much more beautiful with a thick green border and a fixed width */
 input, select {
 	display: block;
 	margin: 10px 0 20px;
@@ -116,6 +172,7 @@ input, select {
 	width: 300px;
 }
 
+/* The button is filled with green, in white, big, rounded and bold */
 button {
 	display: inline-block;
 	border-radius: 3px;
@@ -129,72 +186,13 @@ button {
 	margin-top: 10px;
 }
 
+/* Once the cursor is over this button, it becomes a pointer and the background-color gets darker */
 button:hover {
 	cursor: pointer;
 	background-color: #0dac87;
 }
 
-footer {
-	padding: 10px 0 50px;
-	color: var(--green);
-	border-top: 1px solid lightgray;
-	margin-top: 50px;
-}
-
-.title {
-	border-bottom: 1px solid lightgray;
-	padding-bottom: 15px;
-	display: inline-block;
-}
-
-a[href='#'] {
-	text-decoration: underline;
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.table-responsive {
-	overflow: auto;
-}
-
-tr:nth-of-type(even) {
-	background-color: #eee;
-}
-
-th {
-	text-align: left;
-	color: var(--green);
-}
-
-th, td {
-	padding: 10px 15px;
-}
-
-.management-link {
-	float:right
-}
-
-.margin {
-	margin: 70px 0;
-}
-
-h3 {
-	font-weight:normal;
-}
-
-.error {
-	color: red;
-	margin: 10px 0 30px;
-}
-
-.success {
-	color: green;
-	margin: 10px 0 30px;
-}
-
+/* The buttons of the deletion forms in the Administration section are in red */
 .delete-button {
 	background-color: red;
 	padding: 10px;
@@ -204,42 +202,127 @@ h3 {
 	background-color: darkred;
 }
 
+/* Titles of the admin forms */
 .form-title {
 	font-weight: bold;
 	margin: 20px 0;
 }
 
+/* The links pointing towards the current page are underlined. They are the active links within the breadcrumb navigation */
+a[href='#'] {
+	text-decoration: underline;
+}
+
+/* Table borders collapse to remove the void between them */
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+/* .table-responsive is a <div> tag wrapping the table and handling the overflow of the table inside of it for more responsiveness */
+.table-responsive {
+	overflow: auto;
+}
+
+/* one ligne out of two inside the table is grayed out */
+tr:nth-of-type(even) {
+	background-color: #eee;
+}
+
+/* The table headers are green and aligned on the left rather than in the center of the cell */
+th {
+	text-align: left;
+	color: var(--green);
+}
+
+th, td {
+	padding: 10px 15px;
+}
+
+/* The link to log in as the manager of the building floats on the right of the breadcrumb */
+.management-link {
+	float:right
+}
+
+/* Simple blocks to add margin between elements */
+.margin {
+	margin: 70px 0;
+}
+
+/* Error messages, displayed by the server when the user requested an unsupported action or issued bad credentials */
+.error {
+	color: red;
+	margin: 10px 0 30px;
+}
+
+/* Success message, when the server indicates a successful result to the user */
+.success {
+	color: green;
+	margin: 10px 0 30px;
+}
+
+/* Paragraphs are justified and have a bigger line-height */
 p {
 	line-height: 1.25;
 	text-align: justify;
 }
 
+/* For images to be centered and take as much width as they need, but not exceeding the width of their container */
+.img-center {
+	display: block;
+	margin: auto;
+	max-width: 100%;
+}
+
+
+
+/***** RWD *****/
 
 
 @media all and (max-width: 1466px) {
+	/* Reduce the body margin for smaller screens */
 	body {
 		margin: 0 200px 0;
 	}
 }
 
 @media all and (max-width: 1068px) {
+	/* Remove almost all of the left & right margin */
 	body {
 		margin: 0 10px 0;
 	}
 }
 
 
+@media all and (max-width: 800px) {
 
-@media all and (max-width: 706px) {
+	/* The link towards the management page floating on the right comes back on the left, beneath the breadcrumbs */
+	.management-link {
+		display: block;
+		margin-top: 20px;
+	}
+
+	/* Reduce the size of the main title */
 	h1 {
 		font-size: 4em;
 	}
+
+	/* Hide the navbar logo */
 	.logo {
 		display: none;
 	}
+
+	/* Change the navigation style : links are now blocks and spread on a vertical axis. It's early but we don't know how 
+	many sensors there are */
 	nav a {
-		margin-right: 10px;
+		margin: 0;
 		padding: 10px 8px;
 		font-size: .9em;
+		display: block;
+	}
+
+	nav {
+		position: relative;
+		display: block;
 	}
 }

@@ -40,6 +40,7 @@
 </div>
 
 <main>
+	<div class='flex'>
 	<?php
 
 		// Loop through each array of buildings and echo a link towards it.
@@ -66,7 +67,8 @@
 		</div>
 		<?php
 		}
-	?>
+		?>
+	</div>
 	<div class="description">
 
 	<!-- Skills implicated in this project -->
