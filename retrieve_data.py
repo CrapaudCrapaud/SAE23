@@ -26,7 +26,6 @@ ROOMS_TO_RETRIEVE = len(MQTT_ROOMS)
 # Connection to the database
 db = mysql.connector.connect(
     host=MYSQL_HOST,
-    port=3306,
     user=MYSQL_USER,
     password=MYSQL_PASS,
     database=MYSQL_DB
