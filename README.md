@@ -17,7 +17,8 @@ Tous les scripts devaient être commentés en anglais, et le site devait égalem
 ### Base de données
 
 Voici le schéma de la base de données sous MySQL :
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/09ea04f4-5836-448c-8062-38ba3ca37281)
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/fcc585cd-91db-4c8b-9c6b-fec37ab66682)
 
 - La table Batiment contient les informations relatives au bâtiment, ainsi que les identifiants de connexion de son gérant.
 - La table Capteur contient les capteurs et est liée à la table Batiment via la clef étrangère id_bat qui fait référence à la clef primaire id_bat de la table Batiment.
@@ -35,6 +36,12 @@ Il faut insérer ce script dans votre crontab pour qu'il puisse s'exécuter auto
 La commande à inscrire est "/bin/python3 /chemin/vers/le/fichier/retrieve_data.py" (notez que le chemin de l'exécutable python3 peut changer selon les environnements) :
 
 ![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/20219a1a-23f7-45b3-8d7e-026256464d93)
+
+Exemple d'exécution du script :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/45a4e8d3-e8ee-4214-854a-e4fa228d2599)
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/ac357b91-275d-4216-885b-ffcc5a1bf391)
 
 ### Affichage des données sur le site web
 
@@ -63,13 +70,13 @@ Voici l'arborescence du site web :
 - **logout.php** est utilisé pour déconnecter le gérant / l'administrateur et rediriger vers la page d'accueil
 - **management.php** affiche le formulaire de connexion et l'interface de gestion du bâtiment : sélection du capteur et de la plage temporelle à respecter pour afficher les valeurs.
 
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/64209d18-d897-4c98-b409-7948c57da787)
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/072fdb21-69a4-4749-b3c9-703a58aaa461)
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/8196140f-a62a-4190-af30-02dfccb2430b)
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/9f7db2f3-4ba5-48ff-87a7-bb3a9db55482)
 
 - **project.php** contient la partie gestion de projet : diagramme de Gantt, tableau collaboratif Trello, synthèses personnelles (problèmes rencontrées, degré de satisfaction, etc.) et synthèse globale.
 - **sensors.php** permet d'afficher aux visiteurs la donnée la plus récente de chaque capteur du bâtiment choisi :
 
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/90b6da68-f814-4ceb-b730-05f349d8e48f)
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/abdaa62e-4d57-4dc2-8345-59e7f435523f)
 
 Toutes ces pages articulent le site et en font une interface de gestion esthétique, dynamique et fonctionnelle.
 
@@ -140,3 +147,36 @@ On formalise alors la requête qui sera réalisée périodiquement sur la base d
 La requête à réaliser est “**FROM default temperature WHERE building = RT AND room = E208**”.
 
 Ce processus doit être répété pour les autres valeurs dans la base de données SAE23 d'influxDB.
+
+# Hébergement
+
+Nous avons décidé d'héberger le projet sur eohost. La page est disponible à l'URL suivante : http://ramounet.atwebpages.com/SAE23/
+Malheureusement, la base de données MySQL hébergée n'est pas accessible depuis l'extérieur :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/87c56ada-92c0-4612-bdf2-45d64874b86a)
+
+Cependant, on peut tester le site en important le schéma de la base et en insérant des données, et vérifier si l'affichage se fait correctement :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/4e88cd58-dcb4-4805-9b05-6122c37a8133)
+
+Il est nécessaire de modifier au préalable la version de PHP, sinon les fonctions mysqli_fetch_assoc() et autres ne sont pas reconnues :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/655df9b3-4f44-496e-9eeb-89534a395577)
+
+Recréation de la base de données :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/c2daeb05-15e8-49ee-8fe8-a370a8f2442a)
+
+Importation du schéma de la base sae23 :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/770ca0b6-6b45-4735-8278-c74c0f19f05b)
+
+Importation du dossier contenant tous les fichiers relatifs au site :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/29652d79-4b99-4ec5-a90f-c449d89418ae)
+
+La dernière étape réside dans la modification des informations de connexion à la nouvelle base de données MySQL.
+
+Finalement, le site est fonctionnel, mais la base de données devra être mise à jour manuellement par l'intermédiaire de PHPMyAdmin.
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/7aaf48e7-5ddb-4c2b-8f1b-88a1033f719c)
