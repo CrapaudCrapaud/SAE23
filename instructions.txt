@@ -5,75 +5,55 @@ https://doc.ubuntu-fr.org/phpmyadmin
 
 
 - Installation des outils :
-setxkbmap fr
-sudo -s
-apt-get update
-apt install net-tools
-apt install open-vm-tools
-apt install apache2 php libapache2-mod-php mysql-server php-mysql
-apt install phpmyadmin (apache2 - yes - pmaroot)
-apt install python[3]-pip
-pip install mysql-connector-python
-pip install paho-mqtt
-snap install sublime-text --classic
+$ setxkbmap fr
+$ sudo -s
+$ apt-get update
+$ apt install net-tools
+$ apt install open-vm-tools
+$ apt install apache2 php libapache2-mod-php mysql-server php-mysql
+$ apt install phpmyadmin (apache2 - yes - pmaroot)
+$ apt install python[3]-pip
+$ pip install mysql-connector-python
+$ pip install paho-mqtt
+$ snap install sublime-text --classic
 
 
 - Configuration de l'utilisateur isolé de la base de données de la SAE 23 :
-mysql -h localhost -u root -p
-CREATE DATABASE sae23;
-CREATE USER "john"@"localhost" IDENTIFIED BY "john123";
-GRANT ALL ON sae23.* TO "john"@"localhost" WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-QUIT;
+$ mysql -h localhost -u root -p
+mysql> CREATE DATABASE sae23;
+mysql> CREATE USER "john"@"localhost" IDENTIFIED BY "john123";
+mysql> GRANT ALL ON sae23.* TO "john"@"localhost" WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+mysql> QUIT;
 
 
 - Si problèmes avec l'instruction GROUP BY en MySQL, changer la valeur de la variable sql_mode :
 SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));     (https://stackoverflow.com/questions/41887460/select-list-is-not-in-group-by-clause-and-contains-nonaggregated-column-inc)
 
-- Importer le fichier sae23.sql
-- Remplissage des tables pour les tests :
 
-INSERT INTO `Administration`(`login`, `password`) VALUES ('admin','e4abae53cc1cebe5fe89ea93882c699a5e71ab0bbf42a83b7d833975b61c4a41')
-INSERT INTO `Batiment`(`nom_bat`, `login_gest`, `password_gest`) VALUES ('E','gest1','2908476d0ff2b0f6195677d324173b69ed53e397fd1d7fef206758c5516ca6a7')
-INSERT INTO `Batiment`(`nom_bat`, `login_gest`, `password_gest`) VALUES ('B','gest2','b57b66b18e6689677f2c3e8b9da2f1ae4e9ffbf013c8d6da3389b0fc49bb0797')
-
-sha256(adminpass123) = e4abae53cc1cebe5fe89ea93882c699a5e71ab0bbf42a83b7d833975b61c4a41
-sha256(passwordgest1) = 2908476d0ff2b0f6195677d324173b69ed53e397fd1d7fef206758c5516ca6a7
-sha256(passwordgest2) = b57b66b18e6689677f2c3e8b9da2f1ae4e9ffbf013c8d6da3389b0fc49bb0797
+- Importer le fichier sae23.sql pour insérer les données nécessaires aux tests
+  |- identifiants :
+  - admin:adminpass123 (Administration)
+  - gest1:passwordgest1 (Gestionnaire bâtiment E)
+  - gest2:passwordgest2 (Gestionnaire bâtiment B)
 
 
-INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (1,'E208-luminosité','luminosité');
-INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (1,'E208-température','température');
-INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (2,'B106-luminosité','luminosité');
-INSERT INTO `Capteur`(`id_bat`, `nom_capt`, `type_capt`) VALUES (2,'B106-température','température');
+- Configuration et utilisation de Git :
 
+$ git config --global user.name "RAMOUNET"
+$ git config --global user.email elie.ramounet.iut@gmail.com
+$ git config --global color.diff auto 
+$ git config --global color.status auto 
+$ git config --global color.branch auto
+$ git config --global init.defaultBranch main
+$ git config --global core.editor nano
+$ git config --global merge.tool vimdiff
+$ git config --global push.default simple
 
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (1, curdate(), curtime(), 18);
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (1, curdate(), curtime(), 27);
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (2, curdate(), curtime(), 19); 
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (2, curdate(), curtime(), 32);
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (3, curdate(), curtime(), 192);
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (3, curdate(), curtime(), 28); 
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (4, curdate(), curtime(), 11);
-INSERT INTO `Mesure`(`id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES (4, curdate(), curtime(), 16);
+$ git init
+$ git status
 
+$ git add .
 
-- Git :
-
-git config --global user.name "RAMOUNET"
-git config --global user.email elie.ramounet.iut@gmail.com
-git config --global color.diff auto 
-git config --global color.status auto 
-git config --global color.branch auto
-git config --global init.defaultBranch main
-git config --global core.editor nano
-git config --global merge.tool vimdiff
-git config --global push.default simple
-
-git init
-git status
-
-git add .
-
-git remote add origin https://github.com/CrapaudCrapaud/SAE23.git
-git push -u origin main
+$ git remote add origin https://github.com/CrapaudCrapaud/SAE23.git
+$ git push -u origin main
