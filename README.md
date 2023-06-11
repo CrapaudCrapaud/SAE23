@@ -33,15 +33,17 @@ Nous avons choisi d'effectuer la récupération des données avec Python. Pour c
 
 Il faut insérer ce script dans votre crontab pour qu'il puisse s'exécuter automatiquement toutes les 10 minutes, pour avoir un suivi cohérent des données des capteurs.
 
-La commande à inscrire est "/bin/python3 /chemin/vers/le/fichier/retrieve_data.py" (notez que le chemin de l'exécutable python3 peut changer selon les environnements) :
+La commande à inscrire après avoir saisi *crontab -e* est ***\*/10  * * * * /bin/python3 /chemin/vers/le/fichier/retrieve_data.py*** (notez que le chemin de l'exécutable python3 peut changer selon les environnements) :
 
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/20219a1a-23f7-45b3-8d7e-026256464d93)
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/35aef890-5ecd-4788-9cbf-bbeaec36d4a0)
 
-Exemple d'exécution du script :
+Exemple d'exécution manuelle du script :
 
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/45a4e8d3-e8ee-4214-854a-e4fa228d2599)
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/17787a72-6d65-42be-8357-a6b57e1a4176)
 
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/ac357b91-275d-4216-885b-ffcc5a1bf391)
+Répercussions dans la table Mesure :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/5210304d-ccff-42fa-b13b-c61ae095cd0b)
 
 ### Affichage des données sur le site web
 
