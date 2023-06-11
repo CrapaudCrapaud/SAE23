@@ -10,7 +10,7 @@ La première méthode était plus longue et impliquait beaucoup plus d'investiss
 - Créer un script qui récupère les données des capteurs et les envoie dans la base de données
 - Créer un site web dynamique qui affiche ces données, offre une interface de gestion des données de chaque bâtiment par le gérant du bâtiment et une interface d'administration où l'administrateur a la possibilité de supprimer ou d'ajouter un bâtiment ou un capteur.
 
-L'exécution du script de récupération des données devait être automatisée à l'aide du crontab
+L'exécution du script de récupération des données devait être automatisée à l'aide du crontab.
 
 Tous les scripts devaient être commentés en anglais, et le site devait également contenir une page sur la gestion du projet (diagramme de Gantt, outil collaboratif employé, synthèses personnelles...).
 
@@ -24,6 +24,8 @@ Voici le schéma de la base de données sous MySQL :
 - La table Capteur contient les capteurs et est liée à la table Batiment via la clef étrangère id_bat qui fait référence à la clef primaire id_bat de la table Batiment.
 - La table Mesure contient toutes les mesures des capteurs et est liée à la table Capteur grâce à la clef étrangère id_capt qui fait référence à la clef primaire id_capt de la table Capteur.
 - Enfin, la table Administration est indépendante et contient les identifiants de connexion de l'administrateur du site
+
+Tous les mots de passe sont hashés avec SHA256.
 
 ### Récupération des données
 
