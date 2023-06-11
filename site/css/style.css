@@ -23,6 +23,7 @@ body {
 
 .flex {
 	display: flex;
+	flex-wrap: wrap;
 }
 
 /* Main title, on the main page */
@@ -133,7 +134,6 @@ nav a:hover {
 /* .box elements contain the building and their sensors on the front page */
 .box {
 	border-radius: 5px;
-	display: inline-block;
 	border: 1px solid #ddd;
 	margin: 5px;
 }
