@@ -115,7 +115,9 @@ Enfin, afin d'avoir une interprétation graphique minimaliste des données relev
 
 ![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/9a18ad1b-035b-4b1a-820b-9a1828bb7c09)
 
-Les jauges sont désormais accessibles à l'URL http://@ip_de_la_vm:1880/ui
+Les jauges sont désormais accessibles à l'URL http://localhost:1880/ui :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/3294cf40-1686-4c02-b157-e164ae75a071)
 
 ### InfluxDB
 
@@ -151,6 +153,10 @@ On formalise alors la requête qui sera réalisée périodiquement sur la base d
 La requête à réaliser est “**FROM default temperature WHERE building = RT AND room = E208**”.
 
 Ce processus doit être répété pour les autres valeurs dans la base de données SAE23 d'influxDB.
+
+Résultat final :
+
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/954c399d-69ad-435a-a24f-5c5698647696)
 
 # Hébergement
 
