@@ -14,6 +14,7 @@ NOM_CAPT = {
 	'illumination': 'luminosité',
 	'temperature':  'température'
 }
+# Hosted database by eohost
 MYSQL_HOST = 'localhost'
 MYSQL_DB = 'sae23'
 MYSQL_USER = 'john'

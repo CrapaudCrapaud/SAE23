@@ -55,19 +55,32 @@
       </tr>
     <?php
 
-      // The given PHP code executes a SQL query to retrieve the most recent measurement for each sensor belonging 
-      // to the specific building $_SESSION['b']. The MAX() function is used to select the maximum date and time values
-      // for each sensor's measurements. The GROUP BY clause ensures that only one record per sensor is returned,
-      // representing the most recent measurement
+      /*
+
+      The query uses a JOIN operation to combine the "Mesure" and "Capteur" tables based on the sensor ID (m.id_capt = c.id_capt). 
+      This allows us to retrieve information from both tables.
+      
+      The WHERE clause includes a condition c.id_bat = $_SESSION['b'] to filter the results and select only the measurements from 
+      sensors belonging to the current building.
+
+      The last condition (m.date_mes, m.horaire_mes) = (SELECT MAX(date_mes), MAX(horaire_mes) FROM Mesure WHERE id_capt = m.id_capt) 
+      ensures that only the measurements with the most recent date and time for each sensor are included in the results.
+      It compares the date and time of each measurement with the maximum date and time obtained through a subquery (
+        SELECT MAX(date_mes), MAX(horaire_mes) FROM Mesure WHERE id_capt = m.id_capt).
+      */
      
       $data = mysqli_query(
         $db,
-        'SELECT Capteur.nom_capt, Mesure.id_capt, MAX(Mesure.date_mes) AS date_mes, MAX(Mesure.horaire_mes) AS horaire_mes
-        FROM Mesure
-        JOIN Capteur ON Mesure.id_capt = Capteur.id_capt
-        WHERE Capteur.id_bat = ' . $_SESSION['b'] . '
-        GROUP BY Mesure.id_capt;'
-      );
+        'SELECT c.nom_capt, m.id_capt, m.valeur_mes, m.date_mes, m.horaire_mes
+        FROM Mesure m
+        JOIN Capteur c ON m.id_capt = c.id_capt
+        WHERE c.id_bat = ' . $_SESSION['b'] . '
+        AND (m.date_mes, m.horaire_mes) = (
+          SELECT MAX(date_mes), MAX(horaire_mes)
+          FROM Mesure
+          WHERE id_capt = m.id_capt
+        )');
+
 
       // Output all the result in the array
       while ($ligne = mysqli_fetch_assoc($data))

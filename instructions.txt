@@ -1,11 +1,8 @@
- VM avec 5G de RAM
-
 - Sources :
 https://www.w3schools.com/python/python_mysql_getstarted.asp
 https://doc.ubuntu-fr.org/lamp
 https://doc.ubuntu-fr.org/phpmyadmin
 
-- mot de passe de la VM : passwordsae123
 
 - Installation des outils :
 setxkbmap fr
@@ -20,15 +17,18 @@ pip install mysql-connector-python
 pip install paho-mqtt
 snap install sublime-text --classic
 
+
 - Configuration de l'utilisateur isolé de la base de données de la SAE 23 :
 mysql -h localhost -u root -p
-SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));     (https://stackoverflow.com/questions/41887460/select-list-is-not-in-group-by-clause-and-contains-nonaggregated-column-inc)
 CREATE DATABASE sae23;
 CREATE USER "john"@"localhost" IDENTIFIED BY "john123";
 GRANT ALL ON sae23.* TO "john"@"localhost" WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 QUIT;
 
+
+- Si problèmes avec l'instruction GROUP BY en MySQL, changer la valeur de la variable sql_mode :
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));     (https://stackoverflow.com/questions/41887460/select-list-is-not-in-group-by-clause-and-contains-nonaggregated-column-inc)
 
 - Importer le fichier sae23.sql
 - Remplissage des tables pour les tests :
@@ -73,12 +73,7 @@ git config --global push.default simple
 git init
 git status
 
-git add config.py retrieve_data.py instructions.txt sae23.sql gantt.gantt
-
-git commit -m "Premiere version du projet"
+git add .
 
 git remote add origin https://github.com/CrapaudCrapaud/SAE23.git
-git branch -M main
 git push -u origin main
-
-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

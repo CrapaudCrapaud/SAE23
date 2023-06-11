@@ -4,7 +4,7 @@
 		// $status is a string
 		// return true if the value associated to the 'status' key of the $_SESSION array equals the argument $status
 		// e.g. check_status('admin') will check if $_SESSION['status'] is equal to 'admin' and return a boolean
-		if ($_SESSION['status'] === $status) {
+		if (isset($_SESSION['status']) && $_SESSION['status'] === $status) {
 			return true;
 		}
 		return false;
@@ -48,7 +48,7 @@
 
 		// if the user is logged in, the session variable 'connected' must be equal to 1
 		// therefore we add a logout link inside the nav bar to allow the user to log out
-		if ($_SESSION['connected'] === 1) {
+		if (isset($_SESSION['connected']) && $_SESSION['connected'] === 1) {
 			$nav = $nav . '<a href="logout.php">Déconnexion</a>';
 		}
 		echo $nav . '</nav>';
@@ -63,7 +63,6 @@
 			</footer>
 		</body>
 		</html>";
-	}
-
+	}      
 
 ?>

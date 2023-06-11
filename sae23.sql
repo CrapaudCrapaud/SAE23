@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2023 at 12:14 PM
+-- Generation Time: Jun 11, 2023 at 10:51 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -58,8 +58,7 @@ CREATE TABLE `Batiment` (
 
 INSERT INTO `Batiment` (`id_bat`, `nom_bat`, `login_gest`, `password_gest`) VALUES
 (1, 'B', 'gest1', '2908476d0ff2b0f6195677d324173b69ed53e397fd1d7fef206758c5516ca6a7'),
-(2, 'E', 'gest2', 'b57b66b18e6689677f2c3e8b9da2f1ae4e9ffbf013c8d6da3389b0fc49bb0797'),
-(4, 'C', 'azer', 'd4b3dfbf113cc8b2f6fd71bcb24b761d04b47c04a59b22a2a7db91b275542892');
+(2, 'E', 'gest2', 'b57b66b18e6689677f2c3e8b9da2f1ae4e9ffbf013c8d6da3389b0fc49bb0797');
 
 -- --------------------------------------------------------
 
@@ -95,7 +94,7 @@ CREATE TABLE `Mesure` (
   `id_capt` tinyint(4) NOT NULL,
   `date_mes` date NOT NULL,
   `horaire_mes` time NOT NULL,
-  `valeur_mes` decimal(10,0) NOT NULL
+  `valeur_mes` decimal(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -103,14 +102,14 @@ CREATE TABLE `Mesure` (
 --
 
 INSERT INTO `Mesure` (`id_mes`, `id_capt`, `date_mes`, `horaire_mes`, `valeur_mes`) VALUES
-(1, 1, '2023-06-02', '06:14:59', '18'),
-(2, 1, '2023-06-08', '06:14:59', '27'),
-(3, 2, '2023-06-08', '06:15:48', '19'),
-(4, 2, '2023-06-08', '06:15:48', '32'),
-(5, 3, '2023-06-08', '06:16:36', '192'),
-(6, 3, '2023-06-08', '06:16:36', '28'),
-(7, 4, '2023-05-08', '06:16:36', '11'),
-(8, 4, '2023-06-08', '06:16:36', '16');
+(1, 2, '2023-06-11', '09:34:00', '30.70'),
+(2, 1, '2023-06-11', '09:34:00', '42.00'),
+(3, 4, '2023-06-11', '09:36:29', '25.70'),
+(4, 3, '2023-06-11', '09:36:29', '54.00'),
+(5, 2, '2023-06-11', '09:44:00', '30.80'),
+(6, 1, '2023-06-11', '09:44:00', '40.00'),
+(7, 4, '2023-06-11', '09:46:29', '25.70'),
+(8, 3, '2023-06-11', '09:46:29', '48.00');
 
 --
 -- Indexes for dumped tables
@@ -144,19 +143,35 @@ ALTER TABLE `Mesure`
 -- AUTO_INCREMENT for table `Batiment`
 --
 ALTER TABLE `Batiment`
-  MODIFY `id_bat` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_bat` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `Capteur`
 --
 ALTER TABLE `Capteur`
-  MODIFY `id_capt` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_capt` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `Mesure`
 --
 ALTER TABLE `Mesure`
   MODIFY `id_mes` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Capteur`
+--
+ALTER TABLE `Capteur`
+  ADD CONSTRAINT `Capteur_ibfk_1` FOREIGN KEY (`id_bat`) REFERENCES `Batiment` (`id_bat`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Mesure`
+--
+ALTER TABLE `Mesure`
+  ADD CONSTRAINT `Mesure_ibfk_1` FOREIGN KEY (`id_capt`) REFERENCES `Capteur` (`id_capt`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
