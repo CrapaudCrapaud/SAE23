@@ -18,7 +18,7 @@ Tous les scripts devaient être commentés en anglais, et le site devait égalem
 
 Voici le schéma de la base de données sous MySQL :
 
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/fcc585cd-91db-4c8b-9c6b-fec37ab66682)
+![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/b16dbffc-1fb8-464f-960f-5e083674f76d)
 
 - La table Batiment contient les informations relatives au bâtiment, ainsi que les identifiants de connexion de son gérant.
 - La table Capteur contient les capteurs et est liée à la table Batiment via la clef étrangère id_bat qui fait référence à la clef primaire id_bat de la table Batiment.
@@ -35,7 +35,7 @@ Nous avons choisi d'effectuer la récupération des données avec Python. Pour c
 
 Il faut insérer ce script dans votre crontab pour qu'il puisse s'exécuter automatiquement toutes les 10 minutes, pour avoir un suivi cohérent des données des capteurs.
 
-La commande à inscrire après avoir saisi *crontab -e* est ***\*/10  * * * * /bin/python3 /chemin/vers/le/fichier/retrieve_data.py*** (notez que le chemin de l'exécutable python3 peut changer selon les environnements) :
+La commande à inscrire après avoir saisi *crontab -e* est ***\*/10 8-19 * * * /bin/python3 /chemin/vers/le/fichier/retrieve_data.py*** (notez que le chemin de l'exécutable python3 peut changer selon les environnements) :
 
 ![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/35aef890-5ecd-4788-9cbf-bbeaec36d4a0)
 
