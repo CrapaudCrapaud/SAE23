@@ -1,5 +1,8 @@
 <?php
 
+	// functions.php
+	// Contain 5 functions used in the program
+
 	function check_status($status) {
 		// $status is a string
 		// return true if the value associated to the 'status' key of the $_SESSION array equals the argument $status

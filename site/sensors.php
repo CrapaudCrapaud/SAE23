@@ -57,31 +57,26 @@
 
       /*
 
-      The query uses a JOIN operation to combine the "Mesure" and "Capteur" tables based on the sensor ID (m.id_capt = c.id_capt). 
-      This allows us to retrieve information from both tables.
+      The SQL query retrieves the latest measurement values for each sensor in building with ID equal to $_SESSION['b']. It joins
+      the "Mesure" table with a subquery to identify the maximum measurement ID for each sensor. Additionally, 
+      it joins the "Capteur" table to fetch the sensor name.
+      The resulting data includes the measurement ID, sensor ID, sensor name, measurement date, time, and value.
       
-      The WHERE clause includes a condition c.id_bat = $_SESSION['b'] to filter the results and select only the measurements from 
-      sensors belonging to the current building.
-
-      The last condition (m.date_mes, m.horaire_mes) = (SELECT MAX(date_mes), MAX(horaire_mes) FROM Mesure WHERE id_capt = m.id_capt) 
-      ensures that only the measurements with the most recent date and time for each sensor are included in the results.
-      It compares the date and time of each measurement with the maximum date and time obtained through a subquery (
-        SELECT MAX(date_mes), MAX(horaire_mes) FROM Mesure WHERE id_capt = m.id_capt).
       */
-     
+
       $data = mysqli_query(
         $db,
-        'SELECT c.nom_capt, m.id_capt, m.valeur_mes, m.date_mes, m.horaire_mes
+        'SELECT m.id_mes, m.id_capt, c.nom_capt, m.date_mes, m.horaire_mes, m.valeur_mes
         FROM Mesure m
+        JOIN (
+            SELECT id_capt, MAX(id_mes) AS max_id_mes
+            FROM Mesure
+            GROUP BY id_capt
+        ) last_measurement ON m.id_capt = last_measurement.id_capt AND m.id_mes = last_measurement.max_id_mes
         JOIN Capteur c ON m.id_capt = c.id_capt
-        WHERE c.id_bat = ' . $_SESSION['b'] . '
-        AND (m.date_mes, m.horaire_mes) = (
-          SELECT MAX(date_mes), MAX(horaire_mes)
-          FROM Mesure
-          WHERE id_capt = m.id_capt
-        )');
+        WHERE c.id_bat = ' . $_SESSION['b']);
 
-
+       
       // Output all the result in the array
       while ($ligne = mysqli_fetch_assoc($data))
       {

@@ -10,7 +10,7 @@
     $ pip install mysql-connector
 
     Make this program a cron job by inserting the following line into your crontab file (crontab -e)
-    */10  * * * * python3 /path/to/the/program/retrieve_data.py
+    */10 8-19 * * * python3 /path/to/the/program/retrieve_data.py
 """
 
 # import the necessary modules to ineract with MQTT and MySQL, convert JSON into a Python dictionary

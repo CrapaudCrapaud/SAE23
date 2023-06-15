@@ -56,7 +56,8 @@
 				
 				// For each building, the program retrieves the associated sensors and displays them in an unordered list
 				$sensors_query = mysqli_query($db, 'SELECT nom_capt FROM Capteur WHERE id_bat = ' . $building[0]);
-
+				
+				
 				while ($sensor = mysqli_fetch_assoc($sensors_query))
 				{
 					echo '<li>' . str_replace('-', ' : ', $sensor['nom_capt']) . '</li>';

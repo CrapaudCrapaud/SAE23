@@ -13,6 +13,7 @@
 	// fetch all the buildings from the database into an array so as to give this array
   // to the html_nav() function used to build the dynamic navigation bar
 	$buildings_query = mysqli_query($db, 'SELECT id_bat, nom_bat FROM Batiment');
+
 	$buildings = mysqli_fetch_all($buildings_query);
 
   // Generate the HTML header part. First argument is the title, second one is the description meta data.

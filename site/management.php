@@ -175,7 +175,7 @@
 
     // If the user is not logged in, the form is displayed
     else {
-
+      
       // Besides, if the user had a mistake in his login details, output an error message and unset the associated variable
 			// so as not to print the error message the next time
 			if (isset($_SESSION['login-error']))

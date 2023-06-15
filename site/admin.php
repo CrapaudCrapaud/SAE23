@@ -105,14 +105,13 @@
 				// If the admin wants to add a sensor
 				case 'add-sensor':
 					// The building ID whose sensors belongs to must match the only-digit regular expression
-					if (isset($_POST['building']) && preg_match('/^[0-9]{1,}$/', $_POST['building']) && isset($_POST['name']) && isset($_POST['type']))
+					if (isset($_POST['building']) && preg_match('/^[0-9]{1,}$/', $_POST['building']) && isset($_POST['name']))
 					{
 						$id_bat = $_POST['building'];
 						// Escape the strings again
 						$name = mysqli_real_escape_string($db, $_POST['name']);
-						$type = mysqli_real_escape_string($db, $_POST['type']);
 						// Insert the newly created sensor into the table Capteur
-						$query = mysqli_query($db, "INSERT INTO Capteur (id_bat, nom_capt, type_capt) VALUES ('$id_bat', '$name', '$type')");
+						$query = mysqli_query($db, "INSERT INTO Capteur (id_bat, nom_capt) VALUES ('$id_bat', '$name')");
 						echo '<p class="success">Le capteur a bien été ajouté !</p>';
 					} else 
 						echo '<p class="error">L\'opération n\'a pas pu être effectuée</p>';
@@ -210,15 +209,13 @@
 				// Same as before. Retrieve all the buildings stored in MySQL and output them in an <option> list within the <select> tag
 				// The value sent to PHP will be the building id, but the user only sees its name
 				$buildings_query = mysqli_query($db, 'SELECT id_bat, nom_bat FROM Batiment');
-				
+
 				while ($building = mysqli_fetch_assoc($buildings_query))
 					echo '<option value="' . $building['id_bat'] . '">Bâtiment ' . $building['nom_bat'] . '</option>';
 			?>
 				</select>
 				<label for='name'>Nom du capteur (format '[salle]-[type]'):</label>
 				<input type='text' name='name' id='name' required placeholder='Nom du capteur' maxlength='25'>
-				<label for='type'>Type du capteur :</label>
-				<input type='text' name='type' id='type' required placeholder="Type du capteur" maxlength='25'>
 				<button type="submit" title="Ajouter le capteur">Ajouter</button>
 			</form>
 <?php

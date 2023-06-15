@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 11, 2023 at 10:51 AM
+-- Generation Time: Jun 15, 2023 at 10:52 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -69,19 +69,18 @@ INSERT INTO `Batiment` (`id_bat`, `nom_bat`, `login_gest`, `password_gest`) VALU
 CREATE TABLE `Capteur` (
   `id_capt` tinyint(4) NOT NULL,
   `id_bat` tinyint(4) NOT NULL,
-  `nom_capt` varchar(25) NOT NULL,
-  `type_capt` varchar(25) NOT NULL
+  `nom_capt` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Capteur`
 --
 
-INSERT INTO `Capteur` (`id_capt`, `id_bat`, `nom_capt`, `type_capt`) VALUES
-(1, 2, 'E208-luminosité', 'luminosité'),
-(2, 2, 'E208-température', 'température'),
-(3, 1, 'B106-luminosité', 'luminosité'),
-(4, 1, 'B106-température', 'température');
+INSERT INTO `Capteur` (`id_capt`, `id_bat`, `nom_capt`) VALUES
+(1, 2, 'E208-luminosité'),
+(2, 2, 'E208-température'),
+(3, 1, 'B106-luminosité'),
+(4, 1, 'B106-température');
 
 -- --------------------------------------------------------
 
@@ -109,7 +108,27 @@ INSERT INTO `Mesure` (`id_mes`, `id_capt`, `date_mes`, `horaire_mes`, `valeur_me
 (5, 2, '2023-06-11', '09:44:00', '30.80'),
 (6, 1, '2023-06-11', '09:44:00', '40.00'),
 (7, 4, '2023-06-11', '09:46:29', '25.70'),
-(8, 3, '2023-06-11', '09:46:29', '48.00');
+(8, 3, '2023-06-11', '09:46:29', '48.00'),
+(9, 4, '2023-06-11', '10:36:29', '25.80'),
+(10, 3, '2023-06-11', '10:36:29', '35.00'),
+(11, 2, '2023-06-11', '10:44:00', '30.80'),
+(12, 1, '2023-06-11', '10:44:00', '18.00'),
+(13, 2, '2023-06-11', '10:54:00', '30.70'),
+(14, 1, '2023-06-11', '10:54:00', '16.00'),
+(15, 4, '2023-06-11', '10:56:29', '25.80'),
+(16, 3, '2023-06-11', '10:56:29', '37.00'),
+(17, 2, '2023-06-12', '11:14:02', '25.80'),
+(18, 1, '2023-06-12', '11:14:02', '9.00'),
+(19, 4, '2023-06-12', '11:16:30', '25.70'),
+(20, 3, '2023-06-12', '11:16:30', '23.00'),
+(21, 2, '2023-06-15', '08:14:13', '25.00'),
+(22, 1, '2023-06-15', '08:14:13', '64.00'),
+(23, 4, '2023-06-15', '08:16:41', '24.30'),
+(24, 3, '2023-06-15', '08:16:41', '10.00'),
+(25, 2, '2023-06-15', '09:04:13', '25.00'),
+(26, 1, '2023-06-15', '09:04:13', '68.00'),
+(27, 4, '2023-06-15', '09:06:41', '24.30'),
+(28, 3, '2023-06-15', '09:06:41', '11.00');
 
 --
 -- Indexes for dumped tables
@@ -143,7 +162,7 @@ ALTER TABLE `Mesure`
 -- AUTO_INCREMENT for table `Batiment`
 --
 ALTER TABLE `Batiment`
-  MODIFY `id_bat` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_bat` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `Capteur`
@@ -155,7 +174,7 @@ ALTER TABLE `Capteur`
 -- AUTO_INCREMENT for table `Mesure`
 --
 ALTER TABLE `Mesure`
-  MODIFY `id_mes` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_mes` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
