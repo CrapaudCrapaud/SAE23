@@ -33,11 +33,11 @@ Nous avons choisi d'effectuer la récupération des données avec Python. Pour c
 - config.py contient toutes les informations de configuration (configuration de MySQL et de MQTT)
 - retrieve_data.py contient le code nécessaire pour récupérer les données des capteurs via MQTT et les insérer dans la table Mesure de la base de données
 
-Il faut insérer ce script dans votre crontab pour qu'il puisse s'exécuter automatiquement toutes les 10 minutes, pour avoir un suivi cohérent des données des capteurs.
+Il faut insérer ce script dans votre crontab pour qu'il puisse s'exécuter automatiquement toutes les 10 minutes, de 8h à 19h, afin d'avoir un suivi cohérent des données des capteurs.
 
 La commande à inscrire après avoir saisi *crontab -e* est ***\*/10 8-19 * * * /bin/python3 /chemin/vers/le/fichier/retrieve_data.py*** (notez que le chemin de l'exécutable python3 peut changer selon les environnements) :
 
-![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/35aef890-5ecd-4788-9cbf-bbeaec36d4a0)
+!![image](https://github.com/CrapaudCrapaud/SAE23/assets/133014379/a905b8dd-fb7a-494b-b352-0a95c0128aac)
 
 Exemple d'exécution manuelle du script :
 
